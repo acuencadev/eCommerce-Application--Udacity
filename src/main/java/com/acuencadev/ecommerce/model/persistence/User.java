@@ -27,6 +27,9 @@ public class User {
     @JsonProperty
     private String username;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private String password;
+
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "cart_id", referencedColumnName = "id")
     @JsonIgnore
@@ -54,5 +57,13 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
