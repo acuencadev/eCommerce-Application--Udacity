@@ -15,8 +15,12 @@ import java.util.List;
 @RequestMapping("/api/item")
 public class ItemController {
 
+    private final ItemRepository itemRepository;
+
     @Autowired
-    private ItemRepository itemRepository;
+    public ItemController(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 
     @GetMapping
     public ResponseEntity<List<Item>> getItems() {

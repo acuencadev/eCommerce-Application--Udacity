@@ -19,14 +19,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/user")
 public class UserController {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final CartRepository cartRepository;
+    private final BCryptPasswordEncoder bcryptPasswordEncoder;
 
     @Autowired
-    private CartRepository cartRepository;
-
-    @Autowired
-    private BCryptPasswordEncoder bcryptPasswordEncoder;
+    public UserController(UserRepository userRepository, CartRepository cartRepository, BCryptPasswordEncoder bcryptPasswordEncoder) {
+        this.userRepository = userRepository;
+        this.cartRepository = cartRepository;
+        this.bcryptPasswordEncoder = bcryptPasswordEncoder;
+    }
 
     @GetMapping("/id/{id}")
     public ResponseEntity<User> findById(@PathVariable Long id) {
