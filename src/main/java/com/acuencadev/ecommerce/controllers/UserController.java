@@ -19,9 +19,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/user")
 public class UserController {
 
-    private final UserRepository userRepository;
-    private final CartRepository cartRepository;
-    private final BCryptPasswordEncoder bcryptPasswordEncoder;
+    private UserRepository userRepository;
+    private CartRepository cartRepository;
+    private BCryptPasswordEncoder bcryptPasswordEncoder;
+
+    public UserController() { }
 
     @Autowired
     public UserController(UserRepository userRepository, CartRepository cartRepository, BCryptPasswordEncoder bcryptPasswordEncoder) {
