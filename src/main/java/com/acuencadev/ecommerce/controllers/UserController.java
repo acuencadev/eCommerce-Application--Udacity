@@ -5,6 +5,8 @@ import com.acuencadev.ecommerce.model.persistence.User;
 import com.acuencadev.ecommerce.model.persistence.repositories.CartRepository;
 import com.acuencadev.ecommerce.model.persistence.repositories.UserRepository;
 import com.acuencadev.ecommerce.model.requests.CreateUserRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/user")
 public class UserController {
+
+    private final static Logger log = LoggerFactory.getLogger(UserController.class);
 
     private UserRepository userRepository;
     private CartRepository cartRepository;
@@ -51,12 +55,18 @@ public class UserController {
         cartRepository.save(cart);
         user.setCart(cart);
 
+        log.info("Username set with " + createUserRequest.getUsername());
+
         if (createUserRequest.getPassword().length() < 7 ||
                 !createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
+            log.debug(String.format("Cannot create User %s as the password does not meet the strength requirements.", user.getUsername()));
+
             return ResponseEntity.badRequest().build();
         }
         
         user.setPassword(bcryptPasswordEncoder.encode(createUserRequest.getPassword()));
+
+        log.debug(String.format("User %s has logged in successfully.", user.getUsername()));
 
         userRepository.save(user);
         return ResponseEntity.ok(user);
