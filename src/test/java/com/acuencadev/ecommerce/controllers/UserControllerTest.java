@@ -26,7 +26,7 @@ public class UserControllerTest {
 
     @Before
     public void setUp() {
-        userController = new UserController();
+        userController = new UserController(null, null, null);
 
         TestUtils.injectObjects(userController, "userRepository", userRepository);
         TestUtils.injectObjects(userController, "cartRepository", cartRepository);

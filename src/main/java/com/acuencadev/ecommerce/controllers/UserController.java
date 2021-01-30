@@ -27,8 +27,6 @@ public class UserController {
     private CartRepository cartRepository;
     private BCryptPasswordEncoder bcryptPasswordEncoder;
 
-    public UserController() { }
-
     @Autowired
     public UserController(UserRepository userRepository, CartRepository cartRepository, BCryptPasswordEncoder bcryptPasswordEncoder) {
         this.userRepository = userRepository;
