@@ -55,8 +55,6 @@ public class UserController {
         cartRepository.save(cart);
         user.setCart(cart);
 
-        log.info("Username set with " + createUserRequest.getUsername());
-
         if (createUserRequest.getPassword().length() < 7 ||
                 !createUserRequest.getPassword().equals(createUserRequest.getConfirmPassword())) {
             log.debug(String.format("Cannot create User %s as the password does not meet the strength requirements.", user.getUsername()));
